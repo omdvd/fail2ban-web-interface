@@ -24,6 +24,8 @@ $novalidipaddress = "nenhum endereço IP válido";
 
 $couldnotbanthisip = "não foi possível banir esse ip";
 
+$couldnotunbanthisip = "não foi possível desbanir esse ip";
+
 $version = "Versão";
 
 $serviceerror = "Serviço fail2ban está ativo? Você configurou o sudo?";

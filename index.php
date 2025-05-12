@@ -14,7 +14,7 @@ if(isset($_POST['submit']))
 
 if($_GET['j']!='' && $_GET['c']!='')
 { $error1=unban_ip($_GET['j'],$_GET['c']);
- if($error1!='OK'){ $error1='<font class="msg_er">'.$error1.'</font>'; }
+ if($error1!='OK'){ if($error1=='couldnotunbanthisip') { $error1='<font class="msg_er">'.$couldnotunbanthisip.'</font>'; } else { $error1='<font class="msg_er">'.$error1.'</font>'; } }
   else
   { $error1='<font class="msg_ok">'.$ipsuccessfullyunbanned.'</font>';
   	unset($_GET); clearstatcache(); sleep(1);

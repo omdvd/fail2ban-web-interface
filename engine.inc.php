@@ -46,10 +46,10 @@ function ban_ip($jail,$ip)
 }
 
 function unban_ip($jail,$ip)
-{ if($jail==''){ return 'no jail selected'; }
-  elseif(!filter_var($ip,FILTER_VALIDATE_IP)) { return 'no valid ip address'; }
+{ if($jail==''){ return 'nojailselected'; }
+  elseif(!filter_var($ip,FILTER_VALIDATE_IP)) { return 'novalidipaddress'; }
   $erg=@exec('sudo /usr/bin/fail2ban-client  set '.escapeshellarg($jail).' unbanip '.escapeshellarg($ip));
-  if($erg!=1){ return 'could not unban this ip'; }
+  if($erg!=1){ return 'couldnotunbanthisip'; }
   return 'OK';
 }
 
