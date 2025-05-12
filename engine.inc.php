@@ -41,7 +41,7 @@ function ban_ip($jail,$ip)
 { if($jail==''){ return 'nojailselected';  }
   elseif(!filter_var($ip,FILTER_VALIDATE_IP)) { return 'novalidipaddress'; }
   $erg=@exec('sudo /usr/bin/fail2ban-client  set '.escapeshellarg($jail).' banip '.escapeshellarg($ip));
-  if($erg!=$ip){ return 'couldnotbanthisip'; }
+  if($erg!=1){ return 'couldnotbanthisip'; }
   return 'OK';
 }
 
@@ -49,7 +49,7 @@ function unban_ip($jail,$ip)
 { if($jail==''){ return 'no jail selected'; }
   elseif(!filter_var($ip,FILTER_VALIDATE_IP)) { return 'no valid ip address'; }
   $erg=@exec('sudo /usr/bin/fail2ban-client  set '.escapeshellarg($jail).' unbanip '.escapeshellarg($ip));
-  if($erg!=$ip){ return 'could not unban this ip'; }
+  if($erg!=1){ return 'could not unban this ip'; }
   return 'OK';
 }
 
