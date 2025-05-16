@@ -2,11 +2,11 @@
 
 * {
   font-family: Arial, Verdana, Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
 }
 
-h1 { font-size: 20px; }
-h2 { font-size: 16px; }
+h1 { font-size: 22px; }
+h2 { font-size: 18px; }
 
 table {
 	background-color: #eee;
@@ -37,6 +37,14 @@ tr:hover {
 .msg_ok { color: #080; }
 .msg_er { color: #800; }
 .msg_gr { color: #666; font-style: italic; font-weight: normal; }
+
+.login_form {
+	width: 30ch;
+}
+
+#container {
+	text-align: -webkit-center;
+}
 
 button > img
 { border: 0;

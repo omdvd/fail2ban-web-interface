@@ -99,8 +99,8 @@ EOT1;
 </div>
 <table>
 <caption><h1>Fail2Ban Webinterface - Login</h1></caption>
-<tr><td><label>Username:</label></td><td><input type="text" name="username" id="username" required></td></tr>
-<tr><td><label>Password:</label></td><td><input type="password" name="password" id="password" required></td></tr>
+<tr><td><label>Username:</label></td><td><input type="text" name="username" id="username" class="login_form" required></td></tr>
+<tr><td><label>Password:</label></td><td><input type="password" name="password" id="password" class="login_form" required></td></tr>
 <tr><td colspan="2" align="center"><input type="submit" name="login" value="Login"></td></tr>
 </table>
 </form>

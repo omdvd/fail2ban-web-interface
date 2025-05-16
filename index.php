@@ -37,6 +37,7 @@ foreach($jails as $j=>$i){ $banned=list_banned($j); $jails[$j]=$banned; }
 <title>Fail2Ban Webinterface</title>
 </head>
 <body>
+<div id="container">
 <h1>Fail2Ban Webinterface</h1></td>
 <button name="reload" onclick="location.href='<?=$_SERVER['PHP_SELF']?>';"><img src="images/reload.png" alt="add">&nbsp;<?php echo $Refresh; ?></button>
 
@@ -93,6 +94,7 @@ foreach($jails as $j=>$cli)
 <?php echo date("r"); ?>
 <p class="msg_gr"><a href="<?php echo $_SERVER['SCRIPT_NAME'].'?logout=true'?>">Logout</a></p>
 <p class="msg_gr"><?php echo $version; ?>: <?=$f2b['version']?></p>
+</div>
 </body>
 </html>
 <!-- vim: set syntax=php ts=2 sw=2 sts=2 sr et: -->
