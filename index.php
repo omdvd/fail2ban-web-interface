@@ -4,6 +4,10 @@
 require_once('engine.inc.php');
 
 
+session_start();
+is_authenticated();
+if(isset($_GET['logout'])) {session_unset(); session_destroy(); header("Location: ".$_SERVER['SCRIPT_NAME']);}
+
 if(isset($_POST['submit']))
 { $error2=ban_ip($_POST['ban_jail'],$_POST['ban_ip']);
   if($error2!='OK'){ if($error2=='nojailselected') { $error2='<font class="msg_er">'.$nojailselected.'</font>'; } if($error2=='novalidipaddress') { $error2='<font class="msg_er">'.$novalidipaddress.'</font>'; } if($error2=='couldnotbanthisip') { $error2='<font class="msg_er">'.$couldnotbanthisip.'</font>'; }}
@@ -87,6 +91,8 @@ foreach($jails as $j=>$cli)
 </form>
 <br>
 <?php echo date("r"); ?>
+<p class="msg_gr"><a href="<?php echo $_SERVER['SCRIPT_NAME'].'?logout=true'?>">Logout</a></p>
 <p class="msg_gr"><?php echo $version; ?>: <?=$f2b['version']?></p>
 </body>
 </html>
+<!-- vim: set syntax=php ts=2 sw=2 sts=2 sr et: -->
