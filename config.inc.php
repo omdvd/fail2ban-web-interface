@@ -12,7 +12,7 @@ $f2b['client']='sudo /usr/bin/fail2ban-client'; # path to fail2ban-client with s
 $f2b['sql-host']='localhost';
 $f2b['sql-dbname']='postfix';
 $f2b['sql-dbuser']='postfix';
-$f2b['sql-passwd']='Myg6cen-y3c1+Wr';
+$f2b['sql-passwd']='***';
 $language='ptbr'; #change language available options are English [en] or Brazilian Portuguese [ptbr]
 
 ######################
@@ -20,4 +20,6 @@ $language='ptbr'; #change language available options are English [en] or Brazili
 ######################
 $f2b['version']='0.2a (2024-01)';
 
+# Override settings in local configuration file
+require_once('config-local.inc.php');
 ?>
