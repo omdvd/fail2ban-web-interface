@@ -71,9 +71,6 @@ function do_login_form()
     if(!preg_match('/^[A-Za-z0-9_\-\@\.]{3,64}$/', $_POST['username']) || !preg_match('/^[A-Za-z0-9_\-\@\~\.\`\!\"\#\$\%\^\&\*\(\)\+\=\/]{3,30}$/', $_POST['password'])) {$login_message="Bad Username or Password!";}
     else {
       $username=$_POST['username']; $password=$_POST['password'];
-      //if(check_dovecot_mailbox($username, $password)) {
-      //if(check_sql_username_password($username, $password)) {
-      //if(check_dovecot_sql_admin($username, $password)) {
       $auth_function = $f2b['auth-func'];
       if($auth_function($username, $password)) {
         session_regenerate_id();
