@@ -77,6 +77,7 @@ function do_login_form()
         header("Location: ".$_SERVER['SCRIPT_NAME']);
       } else {
         $login_message="Bad Username or Password!";
+        syslog(LOG_WARNING, sprintf("f2b-webinterface: login failed for %s from %s", $username, $_SERVER['REMOTE_ADDR']));
       }
     }
   }
