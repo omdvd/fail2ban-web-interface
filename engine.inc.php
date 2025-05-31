@@ -72,6 +72,7 @@ function do_login_form()
     else {
       $username=$_POST['username']; $password=$_POST['password'];
       //if(check_dovecot_mailbox($username, $password)) {
+      //if(check_sql_username_password($username, $password)) {
       if(check_dovecot_sql_admin($username, $password)) {
         session_regenerate_id();
         $_SESSION['username']=$username;
@@ -165,6 +166,19 @@ function check_dovecot_sql_admin($username, $password) {
   fclose($pipes[2]);
   $rval = proc_close($proc);
   return ($rval == 0) ? true : false;
+}
+
+# SQL only username-unencrypt password verificator, PFA mailbox or admin accounts
+function check_sql_username_password($username, $password) {
+  global $f2b;
+  $dbh = new mysqli($f2b['sql-host'], $f2b['sql-dbuser'], $f2b['sql-passwd'], $f2b['sql-dbname']);
+  $sth = $dbh->prepare("SELECT `password` FROM admin WHERE `username`=?");
+  $sth->bind_param("s", $username);
+  $sth->execute();
+  $sth->bind_result($password_hash);
+  $sth->fetch();
+  $dbh->close();
+  return ($password_hash == $password) ? true : false;
 }
 
 ?>
