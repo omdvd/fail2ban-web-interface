@@ -26,6 +26,7 @@ function list_banned($jail)
   $erg=@exec($f2b['client'].' status '.$jail.' | grep "IP list:" | awk -F "list:" \'{print$2}\' | awk \'{$1=$1;print}\'');
   if($erg!='')
   { $banned=explode(" ",$erg);
+    natsort($banned);
     if($f2b['usedns']===true)
     { foreach($banned as $i=>$cli)
       { $dns=gethostbyaddr($cli);
