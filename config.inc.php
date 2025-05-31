@@ -13,6 +13,7 @@ $f2b['sql-host']='localhost';
 $f2b['sql-dbname']='postfix';
 $f2b['sql-dbuser']='postfix';
 $f2b['sql-passwd']='***';
+$f2b['auth-func']='pfa_doveadm_admin'; # Auth function [pfa_doveadm_admin|pfa_doveadm_user|pfa_sql_admin]
 $language='ptbr'; #change language available options are English [en] or Brazilian Portuguese [ptbr]
 
 ######################

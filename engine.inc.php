@@ -65,7 +65,7 @@ function is_authenticated()
 }
 
 function do_login_form()
-{
+{ global $f2b;
   $login_message="";
   if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(!preg_match('/^[A-Za-z0-9_\-\@\.]{3,64}$/', $_POST['username']) || !preg_match('/^[A-Za-z0-9_\-\@\~\.\`\!\"\#\$\%\^\&\*\(\)\+\=\/]{3,30}$/', $_POST['password'])) {$login_message="Bad Username or Password!";}
@@ -73,7 +73,9 @@ function do_login_form()
       $username=$_POST['username']; $password=$_POST['password'];
       //if(check_dovecot_mailbox($username, $password)) {
       //if(check_sql_username_password($username, $password)) {
-      if(check_dovecot_sql_admin($username, $password)) {
+      //if(check_dovecot_sql_admin($username, $password)) {
+      $auth_function = $f2b['auth-func'];
+      if($auth_function($username, $password)) {
         session_regenerate_id();
         $_SESSION['username']=$username;
         header("Location: ".$_SERVER['SCRIPT_NAME']);
@@ -117,7 +119,7 @@ EOT2;
 
 ### Inspired by https://gist.github.com/wrossmann/7685647
 # SQL-free doveadm-only username-password verificator, PFA only mailbox accounts
-function check_dovecot_mailbox($username, $password) {
+function pfa_doveadm_user($username, $password) {
   $descriptors = array(
     0 => array('pipe', 'r'),
     1 => array('pipe', 'w'),
@@ -140,7 +142,7 @@ function check_dovecot_mailbox($username, $password) {
 }
 
 # SQL and doveadm-only username-password verificator, PFA mailbox or admin accounts
-function check_dovecot_sql_admin($username, $password) {
+function pfa_doveadm_admin($username, $password) {
   global $f2b;
   $dbh = new mysqli($f2b['sql-host'], $f2b['sql-dbuser'], $f2b['sql-passwd'], $f2b['sql-dbname']);
   $sth = $dbh->prepare("SELECT `password` FROM admin WHERE `username`=?");
@@ -171,7 +173,7 @@ function check_dovecot_sql_admin($username, $password) {
 }
 
 # SQL only username-unencrypt password verificator, PFA mailbox or admin accounts
-function check_sql_username_password($username, $password) {
+function pfa_sql_admin($username, $password) {
   global $f2b;
   $dbh = new mysqli($f2b['sql-host'], $f2b['sql-dbuser'], $f2b['sql-passwd'], $f2b['sql-dbname']);
   $sth = $dbh->prepare("SELECT `password` FROM admin WHERE `username`=?");
