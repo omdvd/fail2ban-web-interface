@@ -65,7 +65,7 @@ foreach($jails as $j=>$cli)
     echo '</td></tr>';
     if(is_array($cli))
     { foreach($cli as $i=>$c)
-      { $ip=strstr($c,'(',true);
+      { $ip=($f2b['usedns']===true)?strstr($c,'(',true):$c;
       	echo '<tr><td align="center">
         <a href="'.$_SERVER['PHP_SELF'].'?j='.$j.'&c='.$ip.'"><img src="images/del.gif" alt="del" title="'.$UnbanIP.'"></a>
         </td><td>'.$c.'</td></tr>';
