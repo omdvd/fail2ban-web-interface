@@ -41,7 +41,7 @@ function list_banned($jail)
 function ban_ip($jail,$ip)
 { global $f2b;
   if($jail==''){ return 'nojailselected';  }
-  elseif(!filter_var($ip,FILTER_VALIDATE_IP)) { return 'novalidipaddress'; }
+  elseif(!validateCidr($ip)) { return 'novalidipaddress'; }
   $erg=@exec($f2b['client'].' set '.escapeshellarg($jail).' banip '.escapeshellarg($ip));
   if($erg!=1){ return 'couldnotbanthisip'; }
   return 'OK';
@@ -50,10 +50,23 @@ function ban_ip($jail,$ip)
 function unban_ip($jail,$ip)
 { global $f2b;
   if($jail==''){ return 'nojailselected'; }
-  elseif(!filter_var($ip,FILTER_VALIDATE_IP)) { return 'novalidipaddress'; }
+  elseif(!validateCidr($ip)) { return 'novalidipaddress'; }
   $erg=@exec($f2b['client'].' set '.escapeshellarg($jail).' unbanip '.escapeshellarg($ip));
   if($erg!=1){ return 'couldnotunbanthisip'; }
   return 'OK';
+}
+
+function validateCidr($cidr)
+{
+  $parts=explode('/',$cidr);
+  $ip=$parts[0];
+  $netmask=0;
+  if(count($parts)>1){ $netmask=intval($parts[1]); }
+  if(count($parts)>2){ return false; }
+  if($netmask<0){ return false; }
+  if(filter_var($ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4)) { return($netmask<=32); }
+  if(filter_var($ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV6)) { return($netmask<=128); }
+  return false;
 }
 
 function is_authenticated()
