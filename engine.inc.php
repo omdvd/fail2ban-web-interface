@@ -195,5 +195,18 @@ function pfa_sql_admin($username, $password) {
   return ($password_hash == $password) ? true : false;
 }
 
+# SQL only username-encrypt password verificator
+function self_sql_admin($username, $password) {
+  global $f2b;
+  $dbh = new mysqli($f2b['sql-host'], $f2b['sql-dbuser'], $f2b['sql-passwd'], $f2b['sql-dbname']);
+  $sth = $dbh->prepare("SELECT `passhash` FROM userlist WHERE `username`=?");
+  $sth->bind_param("s", $username);
+  $sth->execute();
+  $sth->bind_result($password_hash);
+  $sth->fetch();
+  $dbh->close();
+  return (password_verify($password, $password_hash)) ? true : false;
+}
+
 ?>
 <!-- vim: set syntax=php ts=2 sw=2 sts=2 sr et: -->
